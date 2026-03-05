@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fours™ Classic - StarGurls</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    :root { --y:#EEFF00; --b:#2B2BDD; --w:#fff; --g:#777; }
+    body { background:#000; color:#fff; font-family:'DM Sans',sans-serif; overflow-x:hidden; }
+    #sf { position:fixed; inset:0; z-index:0; pointer-events:none; }
+    nav,main,footer { position:relative; z-index:2; }
+
+    /* ── NAV ── */
+    nav { position:fixed; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:16px 48px; border-bottom:1px solid rgba(238,255,0,0.15); background:rgba(0,0,0,0.72); backdrop-filter:blur(22px); z-index:100; }
+    .nav-logo { display:flex; align-items:center; gap:11px; text-decoration:none; color:#fff; }
+    .nav-logo img { width:34px; height:34px; object-fit:contain; }
+    .logo-svg { width:34px; height:34px; display:none; }
+    .nav-logo span { font-family:'Unbounded',sans-serif; font-size:0.95rem; font-weight:700; }
+    .back-link { display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--g); font-size:0.82rem; letter-spacing:0.04em; transition:color 0.2s; }
+    .back-link:hover { color:var(--y); }
+    .back-link svg { width:16px; height:16px; }
+
+    /* ── HERO ── */
+    #hero { position:relative; min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:130px 32px 80px; overflow:hidden; }
+    .hero-glow { position:absolute; width:600px; height:600px; top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; z-index:0; animation:floatStar 8s ease-in-out infinite; }
+    @keyframes floatStar { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-52%) scale(1.05)} }
+    .hero-glow svg { width:100%; height:100%; filter:blur(60px); opacity:0.88; }
+    .hero-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:20px; max-width:600px; }
+    .hero-eyebrow { font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--y); opacity:0.8; }
+    .hero-title { font-family:'Unbounded',sans-serif; font-size:clamp(2rem,6vw,4rem); font-weight:900; letter-spacing:-0.02em; line-height:1.05; }
+    .hero-tag { font-size:clamp(0.9rem,2vw,1.1rem); color:var(--g); font-style:italic; font-weight:300; }
+    .hero-meta { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+    .meta-pill { padding:6px 18px; border-radius:100px; border:1px solid rgba(255,255,255,0.12); font-size:0.8rem; color:var(--g); letter-spacing:0.04em; }
+    .badge-hero { display:inline-block; padding:5px 16px; border-radius:100px; font-size:0.7rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; border:1.5px solid rgba(238,255,0,0.5); color:var(--y); }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:8px; }
+
+    /* ── BUTTONS ── */
+    .btn { padding:13px 30px; border-radius:100px; font-family:'DM Sans',sans-serif; font-size:0.88rem; font-weight:500; cursor:pointer; transition:all 0.22s ease; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap; }
+    .btn-o { background:transparent; border:1.5px solid rgba(238,255,0,0.55); color:#fff; }
+    .btn-o:hover { background:rgba(238,255,0,0.07); border-color:var(--y); transform:translateY(-2px); }
+
+    /* ── DIVIDER ── */
+    .divider { border:none; border-top:1px solid rgba(238,255,0,0.12); margin:0 48px; }
+
+    /* ── SECTIONS — all centered ── */
+    .sec-outer { position:relative; overflow:hidden; }
+    section { max-width:680px; margin:0 auto; padding:80px 32px; position:relative; z-index:2; text-align:center; }
+
+    .s-label { font-family:'Unbounded',sans-serif; font-size:clamp(1.3rem,3vw,1.8rem); font-weight:700; letter-spacing:-0.02em; margin-bottom:22px; color:var(--y); }
+    .s-body { font-size:0.96rem; color:var(--g); line-height:1.9; }
+    .s-body strong { color:#fff; font-weight:500; }
+
+    /* ── FOUR MODES GRID ── */
+    .modes-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:8px; }
+    .mode-card { border:1px solid rgba(238,255,0,0.2); border-radius:14px; padding:20px; background:rgba(238,255,0,0.02); transition:background 0.3s, border-color 0.3s; text-align:center; }
+    .mode-card:hover { background:rgba(238,255,0,0.04); border-color:rgba(238,255,0,0.4); }
+    .mode-letter { font-family:'Unbounded',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--y); margin-bottom:8px; opacity:0.7; }
+    .mode-name { font-family:'Unbounded',sans-serif; font-size:0.88rem; font-weight:700; color:#fff; margin-bottom:6px; }
+    .mode-desc { font-size:0.8rem; color:var(--g); line-height:1.65; }
+
+    /* ── FEATURES ── */
+    .features-list { display:flex; flex-direction:column; gap:14px; margin-top:8px; text-align:left; max-width:480px; margin-left:auto; margin-right:auto; }
+    .feature-item { display:flex; align-items:flex-start; gap:14px; }
+    .feature-dot { width:8px; height:8px; border-radius:50%; background:var(--y); flex-shrink:0; margin-top:7px; }
+    .feature-text { font-size:0.93rem; color:var(--g); line-height:1.7; }
+    .feature-text strong { color:#fff; font-weight:500; }
+
+    /* ── GLOW ── */
+    .g-blob { position:absolute; pointer-events:none; z-index:0; }
+    .g-blob svg { filter:blur(58px); }
+
+    /* ── FOOTER ── */
+    footer { border-top:1px solid rgba(238,255,0,0.12); padding:40px 48px 32px; display:flex; flex-direction:column; align-items:center; gap:20px; }
+    .footer-legal { display:flex; gap:28px; flex-wrap:wrap; justify-content:center; }
+    .footer-legal a { color:#555; text-decoration:none; font-size:0.75rem; letter-spacing:0.03em; transition:color 0.2s; }
+    .footer-legal a:hover { color:var(--y); }
+    .footer-copy { font-size:0.72rem; color:rgba(255,255,255,0.22); letter-spacing:0.04em; }
+    .footer-hr { border:none; border-top:1px solid rgba(255,255,255,0.07); width:100%; max-width:500px; }
+
+    @media(max-width:600px) {
+      nav { padding:14px 20px; }
+      section { padding:60px 20px; }
+      .modes-grid { grid-template-columns:1fr; }
+      footer { padding:36px 20px 28px; }
+      .divider { margin:0 20px; }
+      .hero-glow { width:360px; height:360px; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="sf"></canvas>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.png" alt="StarGurls" onerror="this.style.display='none';document.querySelector('.logo-svg').style.display='block'"/>
+    <span>StarGurls</span>
+  </a>
+  <a class="back-link" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    back to StarGurls
+  </a>
+</nav>
+
+<main>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-glow">
+    <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="hg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#2B2BDD" stop-opacity="1"/>
+          <stop offset="42%" stop-color="#5500AA" stop-opacity="0.7"/>
+          <stop offset="74%" stop-color="#EEFF00" stop-opacity="0.75"/>
+          <stop offset="100%" stop-color="#EEFF00" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <path d="M300 30L360 210L540 210L396 318L456 498L300 384L144 498L204 318L60 210L240 210Z" fill="url(#hg)"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <span class="badge-hero">Coming Soon</span>
+    <p class="hero-eyebrow">StarGurls Games</p>
+    <h1 class="hero-title">Fours™<br/>Classic</h1>
+    <p class="hero-tag">Four games. One deck. Endless ways to play.</p>
+    <div class="hero-meta">
+      <span class="meta-pill">1+ players</span>
+      <span class="meta-pill">15–30 minutes</span>
+      <span class="meta-pill">Colour-blind friendly</span>
+    </div>
+    <div class="hero-btns">
+      <a href="https://instagram.com/stargurlsgames" target="_blank" class="btn btn-o">Follow for Updates</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ── OVERVIEW ── -->
+<div class="sec-outer">
+  <div class="g-blob" style="width:400px;height:400px;left:-140px;top:0;">
+    <svg viewBox="0 0 400 400" style="width:100%;height:100%;">
+      <defs><radialGradient id="og" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2B2BDD" stop-opacity="0.8"/><stop offset="100%" stop-color="#2B2BDD" stop-opacity="0"/></radialGradient></defs>
+      <path d="M200 20L240 140L360 140L264 208L304 328L200 256L96 328L136 208L40 140L160 140Z" fill="url(#og)"/>
+    </svg>
+  </div>
+  <section>
+    <h2 class="s-label">Overview</h2>
+    <p class="s-body">Fours™ Classic is a minimalist 54-card deck designed to be played in four different ways.<br/><br/>From classic card games to fast duels, pattern matching, and grid strategy, each mode offers a distinct way to play — all using the same beautifully simple deck.<br/><br/>Built in black and white for clarity and accessibility, Fours™ Classic is easy to learn, quick to play, and endlessly replayable.</p>
+  </section>
+</div>
+
+<hr class="divider"/>
+
+<!-- ── FOUR GAMES ── -->
+<div class="sec-outer">
+  <section>
+    <h2 class="s-label">Game Modes</h2>
+    <div class="modes-grid">
+      <div class="mode-card">
+        <p class="mode-letter">Game A</p>
+        <p class="mode-name">Classic Poker</p>
+        <p class="mode-desc">A fully playable 54-card deck for traditional card games.</p>
+      </div>
+      <div class="mode-card">
+        <p class="mode-letter">Game B</p>
+        <p class="mode-name">Rock • Paper • Scissors</p>
+        <p class="mode-desc">A fast-paced duel mode built around the classic three symbol showdown.</p>
+      </div>
+      <div class="mode-card">
+        <p class="mode-letter">Game C</p>
+        <p class="mode-name">Shape Matcher</p>
+        <p class="mode-desc">A visual pattern matching game based on shared shapes and internal designs.</p>
+      </div>
+      <div class="mode-card">
+        <p class="mode-letter">Game D</p>
+        <p class="mode-name">Tic-Tac-Toe</p>
+        <p class="mode-desc">A competitive grid battle played with X and O cards on the included board.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<hr class="divider"/>
+
+<!-- ── FEATURES ── -->
+<div class="sec-outer">
+  <div class="g-blob" style="width:380px;height:380px;right:-130px;top:0;">
+    <svg viewBox="0 0 380 380" style="width:100%;height:100%;">
+      <defs><radialGradient id="fg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#EEFF00" stop-opacity="0.4"/><stop offset="100%" stop-color="#EEFF00" stop-opacity="0"/></radialGradient></defs>
+      <path d="M190 19L228 133L342 133L250 199L288 313L190 244L92 313L130 199L38 133L152 133Z" fill="url(#fg2)"/>
+    </svg>
+  </div>
+  <section>
+    <h2 class="s-label">What's Included</h2>
+    <div class="features-list">
+      <div class="feature-item"><div class="feature-dot"></div><p class="feature-text"><strong>54 cards</strong></p></div>
+      <div class="feature-item"><div class="feature-dot"></div><p class="feature-text"><strong>Game board</strong></p></div>
+      <div class="feature-item"><div class="feature-dot"></div><p class="feature-text"><strong>Rulebook</strong></p></div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <hr class="footer-hr"/>
+  <div class="footer-legal">
+    <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+    <a href="terms-of-use.html" target="_blank">Terms of Use</a>
+    <a href="cookie-policy.html" target="_blank">Cookie Policy</a>
+  </div>
+  <p class="footer-copy">© 2026 StarGurls. All rights reserved.</p>
+</footer>
+
+<script>
+  const sf=document.getElementById('sf'),cx=sf.getContext('2d');let stars=[];
+  function resize(){sf.width=innerWidth;sf.height=innerHeight;}
+  function init(){stars=[];const n=Math.floor(sf.width*sf.height/4800);for(let i=0;i<n;i++)stars.push({x:Math.random()*sf.width,y:Math.random()*sf.height,r:Math.random()*1.4+0.15,a:Math.random()*0.75+0.15,s:Math.random()*0.004+0.001,p:Math.random()*Math.PI*2});}
+  function draw(t){cx.clearRect(0,0,sf.width,sf.height);stars.forEach(s=>{const a=s.a*(0.55+0.45*Math.sin(t*s.s+s.p));cx.beginPath();cx.arc(s.x,s.y,s.r,0,Math.PI*2);cx.fillStyle=`rgba(255,255,255,${a})`;cx.fill();});requestAnimationFrame(draw);}
+  resize();init();addEventListener('resize',()=>{resize();init();});requestAnimationFrame(draw);
+</script>
+</body>
+</html>

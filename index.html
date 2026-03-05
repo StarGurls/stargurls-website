@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StarGurls - Play Brighter</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root { --y:#EEFF00; --b:#2B2BDD; --w:#fff; --g:#777; }
+    html { scroll-behavior:smooth; }
+    body { background:#000; color:#fff; font-family:'DM Sans',sans-serif; overflow-x:hidden; }
+
+    #sf { position:fixed; inset:0; z-index:0; pointer-events:none; }
+    nav, main, footer { position:relative; z-index:2; }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 48px;
+      border-bottom:1px solid rgba(238,255,0,0.15);
+      background:rgba(0,0,0,0.72); backdrop-filter:blur(22px);
+      z-index:100;
+    }
+    .nav-logo { display:flex; align-items:center; gap:11px; text-decoration:none; color:#fff; }
+    .nav-logo img { width:34px; height:34px; object-fit:contain; }
+    .logo-svg { width:34px; height:34px; display:none; }
+    .nav-logo span { font-family:'Unbounded',sans-serif; font-size:0.95rem; font-weight:700; }
+    .nav-links { display:flex; align-items:center; gap:36px; }
+    .nav-link { color:var(--g); text-decoration:none; font-size:0.82rem; letter-spacing:0.04em; transition:color 0.2s; }
+    .nav-link:hover { color:var(--y); }
+
+    /* ── HERO ── */
+    #hero {
+      position:relative; min-height:100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center; padding:130px 32px 100px; overflow:hidden;
+    }
+    .hero-glow {
+      position:absolute; width:680px; height:680px;
+      top:50%; left:50%; transform:translate(-50%,-50%);
+      pointer-events:none; z-index:0;
+      animation:floatStar 8s ease-in-out infinite;
+    }
+    @keyframes floatStar {
+      0%,100% { transform:translate(-50%,-50%) scale(1); }
+      50%      { transform:translate(-50%,-52%) scale(1.05); }
+    }
+    .hero-glow svg { width:100%; height:100%; filter:blur(60px); opacity:0.88; }
+    .hero-content {
+      position:relative; z-index:2;
+      display:flex; flex-direction:column; align-items:center; gap:22px; max-width:640px;
+    }
+    .hero-eyebrow { font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--y); opacity:0.8; animation:fadeUp 0.8s ease both; }
+    .hero-title { font-family:'Unbounded',sans-serif; font-size:clamp(2rem,6.5vw,4.2rem); font-weight:900; letter-spacing:-0.02em; line-height:1.05; animation:fadeUp 0.8s ease 0.1s both; }
+    .hero-sub { font-size:clamp(0.9rem,2vw,1.05rem); color:var(--g); line-height:1.75; max-width:420px; font-weight:300; animation:fadeUp 0.8s ease 0.22s both; }
+    .hero-slogan { font-family:'Unbounded',sans-serif; font-size:clamp(1.4rem,4vw,2.4rem); font-weight:700; color:var(--y); animation:fadeUp 0.8s ease 0.34s both; }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:8px; animation:fadeUp 0.8s ease 0.46s both; }
+
+    /* ── BUTTONS ── */
+    .btn { padding:13px 30px; border-radius:100px; font-family:'DM Sans',sans-serif; font-size:0.88rem; font-weight:500; cursor:pointer; transition:all 0.22s ease; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; white-space:nowrap; }
+    .btn-y { background:var(--y); border:1.5px solid var(--y); color:#000; font-weight:600; }
+    .btn-y:hover { background:#fff; border-color:#fff; transform:translateY(-2px); box-shadow:0 8px 28px rgba(238,255,0,0.2); }
+    .btn-o { background:transparent; border:1.5px solid rgba(238,255,0,0.55); color:#fff; }
+    .btn-o:hover { background:rgba(238,255,0,0.07); border-color:var(--y); transform:translateY(-2px); }
+
+    /* ── DIVIDER ── */
+    .divider { border:none; border-top:1px solid rgba(238,255,0,0.12); margin:0 48px; }
+
+    /* ── SECTIONS ── */
+    .sec-outer { position:relative; overflow:hidden; }
+    section { max-width:680px; margin:0 auto; padding:88px 32px; position:relative; z-index:2; text-align:center; }
+
+    /* About labels — all same big yellow size */
+    .s-label {
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(1.4rem,3.5vw,2rem);
+      font-weight:700; letter-spacing:-0.02em;
+      margin-bottom:18px; line-height:1.2;
+      color:var(--y);
+    }
+    .s-label.w { color:#fff; }
+
+    /* Studio tagline — smaller, like body */
+    .s-studio {
+      font-size:0.96rem; color:var(--g); line-height:1.9; margin-bottom:0;
+    }
+
+    .s-body { font-size:0.96rem; color:var(--g); line-height:1.9; }
+    .s-body strong { color:#fff; font-weight:500; }
+    .s-gap { margin-top:56px; }
+    .about-tag { display:inline-block; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--y); margin-bottom:28px; opacity:0.7; }
+
+    /* ── GLOW BLOBS ── */
+    .g-blob { position:absolute; pointer-events:none; z-index:0; }
+    .g-blob svg { filter:blur(58px); }
+
+    /* ── GAMES ── */
+    .games-h { font-family:'Unbounded',sans-serif; font-size:clamp(1.5rem,4vw,2.2rem); font-weight:700; letter-spacing:-0.02em; text-align:center; margin-bottom:48px; }
+
+    .game-badge-above {
+      display:inline-block; padding:5px 16px; border-radius:100px;
+      font-size:0.68rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+      border:1px solid rgba(238,255,0,0.45); color:var(--y);
+      margin-bottom:14px;
+    }
+    .game-card {
+      border:1.5px solid var(--y); border-radius:20px; padding:32px 26px;
+      background:rgba(238,255,0,0.02); transition:background 0.3s, box-shadow 0.3s;
+      text-align:center;
+    }
+    .game-card:hover { background:rgba(238,255,0,0.04); box-shadow:0 0 40px rgba(238,255,0,0.07); }
+    .game-info { display:flex; flex-direction:column; align-items:center; gap:10px; }
+    .game-title { font-family:'Unbounded',sans-serif; font-size:1.2rem; font-weight:700; letter-spacing:-0.01em; }
+    .game-meta { font-size:0.78rem; color:var(--g); letter-spacing:0.04em; }
+    .game-desc { font-size:0.88rem; color:var(--g); line-height:1.75; max-width:440px; }
+
+    .game-cta { text-align:center; margin-top:20px; }
+
+    /* ── NEWSLETTER ── */
+    .nl-title { font-family:'Unbounded',sans-serif; font-size:clamp(1.3rem,3.5vw,1.9rem); font-weight:700; letter-spacing:-0.02em; margin-bottom:14px; line-height:1.2; }
+    .nl-desc { font-size:0.93rem; color:var(--g); line-height:1.75; margin-bottom:28px; }
+    .nl-form { display:flex; flex-direction:column; gap:12px; margin-bottom:16px; }
+    .nl-input { width:100%; padding:14px 22px; border-radius:100px; border:1.5px solid rgba(238,255,0,0.3); background:transparent; color:#fff; font-family:'DM Sans',sans-serif; font-size:0.9rem; outline:none; transition:border-color 0.2s; }
+    .nl-input::placeholder { color:#555; }
+    .nl-input:focus { border-color:var(--y); }
+    .nl-input.err { border-color:#ff4444; }
+    .nl-btn { width:100%; padding:14px 30px; border-radius:100px; background:var(--y); border:none; color:#000; font-family:'Unbounded',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:0.02em; cursor:pointer; transition:all 0.2s; }
+    .nl-btn:hover { background:#fff; transform:translateY(-2px); }
+    .nl-consent { font-size:0.75rem; color:#555; line-height:1.65; }
+    .nl-thanks { display:none; font-family:'Unbounded',sans-serif; font-size:0.95rem; font-weight:700; color:var(--y); margin-top:24px; letter-spacing:0.01em; }
+
+    /* ── FOOTER ── */
+    footer { border-top:1px solid rgba(238,255,0,0.12); padding:52px 48px 36px; display:flex; flex-direction:column; align-items:center; gap:24px; }
+    .footer-socials { display:flex; align-items:center; gap:10px; }
+    .footer-soc-label { font-size:0.78rem; color:var(--g); letter-spacing:0.06em; margin-right:6px; }
+    .soc-btn { width:38px; height:38px; border-radius:50%; background:var(--y); display:flex; align-items:center; justify-content:center; text-decoration:none; transition:transform 0.2s, background 0.2s; }
+    .soc-btn:hover { transform:scale(1.12) translateY(-2px); background:#fff; }
+    .soc-btn svg { width:17px; height:17px; }
+    .footer-contact { display:flex; align-items:center; gap:10px; }
+    .footer-contact-label { font-size:0.78rem; color:var(--g); letter-spacing:0.06em; }
+    .mail-dot { width:34px; height:34px; border-radius:50%; background:var(--y); display:flex; align-items:center; justify-content:center; }
+    .mail-dot svg { width:15px; height:15px; }
+    .footer-contact a { color:#fff; text-decoration:none; font-size:0.88rem; transition:color 0.2s; }
+    .footer-contact a:hover { color:var(--y); }
+    .footer-hr { border:none; border-top:1px solid rgba(255,255,255,0.07); width:100%; max-width:500px; }
+    .footer-legal { display:flex; gap:28px; flex-wrap:wrap; justify-content:center; }
+    .footer-legal a { color:#555; text-decoration:none; font-size:0.75rem; letter-spacing:0.03em; transition:color 0.2s; }
+    .footer-legal a:hover { color:var(--y); }
+    .footer-copy { font-size:0.72rem; color:rgba(255,255,255,0.22); letter-spacing:0.04em; }
+
+    /* ── ANIM ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── MOBILE ── */
+    @media(max-width:600px) {
+      nav { padding:14px 20px; }
+      .nav-links { gap:20px; }
+      .divider { margin:0 20px; }
+      section { padding:64px 20px; }
+      footer { padding:40px 20px 28px; }
+      .game-card { flex-direction:column; }
+      .game-thumb { width:100%; height:160px; }
+      .badge-corner { top:14px; right:14px; }
+      .game-title { padding-right:0; }
+      .hero-glow { width:380px; height:380px; }
+    }
+    /* ── COOKIE BANNER ── */
+    .cookie-banner {
+      position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+      z-index:999; width:calc(100% - 48px); max-width:620px;
+      background:rgba(10,10,10,0.92); backdrop-filter:blur(20px);
+      border:1px solid rgba(238,255,0,0.25); border-radius:16px;
+      padding:18px 24px; display:flex; align-items:center;
+      justify-content:space-between; gap:16px; flex-wrap:wrap;
+    }
+    .cookie-banner p { font-size:0.82rem; color:#888; line-height:1.6; flex:1; min-width:200px; }
+    .cookie-banner p a { color:var(--y); text-decoration:none; }
+    .cookie-banner p a:hover { text-decoration:underline; }
+    .cookie-btn { padding:10px 24px; border-radius:100px; background:var(--y);
+      border:none; color:#000; font-family:'Unbounded',sans-serif;
+      font-weight:700; font-size:0.75rem; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
+    .cookie-btn:hover { background:#fff; }
+  </style>
+</head>
+<body>
+
+<canvas id="sf"></canvas>
+
+<!-- ── NAV ── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="logo.png" alt="StarGurls" onerror="this.style.display='none';document.querySelector('.logo-svg').style.display='block'"/>
+    <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
+      <path d="M50 8C52 8 54 12 56 18L62 36L80 30C84 28 88 28 88 32C88 35 85 38 81 42L68 54L76 74C78 80 78 84 74 84C71 84 68 81 64 78L50 68L36 78C32 81 29 84 26 84C22 84 22 80 24 74L32 54L19 42C15 38 12 35 12 32C12 28 16 28 20 30L38 36L44 18C46 12 48 8 50 8Z" fill="#4A90C4" stroke="#EEFF00" stroke-width="4"/>
+    </svg>
+    <span>StarGurls</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about-outer" class="nav-link">about</a>
+    <a href="#games-outer" class="nav-link">games</a>
+    <a href="#nl-outer" class="nav-link">newsletter</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-glow">
+    <svg viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="hg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#2B2BDD" stop-opacity="1"/>
+          <stop offset="42%" stop-color="#6600BB" stop-opacity="0.7"/>
+          <stop offset="74%" stop-color="#EEFF00" stop-opacity="0.75"/>
+          <stop offset="100%" stop-color="#EEFF00" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <path d="M340 34L406 238L612 238L450 358L516 562L340 434L164 562L230 358L68 238L274 238Z" fill="url(#hg)"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">StarGurls Games</p>
+    <h1 class="hero-title">We're building<br/>games.</h1>
+    <p class="hero-sub">Just passionate people creating games we love — and hoping you'll love them too.</p>
+    <p class="hero-slogan">Play Brighter.</p>
+    <div class="hero-btns">
+      <a href="#games-outer" class="btn btn-y">Explore Our First Game</a>
+      <a href="https://instagram.com/stargurlsgames" target="_blank" class="btn btn-o">Follow Our Journey</a>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<!-- ── ABOUT ── -->
+<div class="sec-outer" id="about-outer">
+  <div class="g-blob" style="width:420px;height:420px;left:-160px;top:40px;">
+    <svg viewBox="0 0 420 420" style="width:100%;height:100%;">
+      <defs><radialGradient id="ag1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2B2BDD" stop-opacity="0.85"/><stop offset="100%" stop-color="#2B2BDD" stop-opacity="0"/></radialGradient></defs>
+      <path d="M210 22L252 148L378 148L280 220L322 346L210 272L98 346L140 220L42 148L168 148Z" fill="url(#ag1)"/>
+    </svg>
+  </div>
+  <div class="g-blob" style="width:340px;height:340px;right:-120px;bottom:0;">
+    <svg viewBox="0 0 340 340" style="width:100%;height:100%;">
+      <defs><radialGradient id="ag2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#EEFF00" stop-opacity="0.4"/><stop offset="100%" stop-color="#EEFF00" stop-opacity="0"/></radialGradient></defs>
+      <path d="M170 18L204 124L310 124L226 184L260 290L170 228L80 290L114 184L30 124L136 124Z" fill="url(#ag2)"/>
+    </svg>
+  </div>
+
+  <section id="about">
+    <span class="about-tag">Our Story</span>
+
+    <!-- OUR STORY heading big yellow -->
+    <h2 class="s-label">Our Story</h2>
+    <!-- Tagline smaller like body -->
+    <p class="s-studio">An independent creative studio crafting accessible, aesthetic games.<br/>Made in Greece. Played everywhere.</p>
+
+    <div class="s-gap">
+      <h2 class="s-label">Our Mission</h2>
+      <p class="s-body">Our mission is simple — to help you <strong>Play Brighter</strong>.<br/><br/>We believe games should be inclusive, imaginative, and built to last — thoughtfully designed experiences that bring people together.</p>
+    </div>
+
+    <div class="s-gap">
+      <h2 class="s-label y">Heads Up.</h2>
+      <p class="s-body">This is just the beginning.<br/><br/>We're an early stage studio, hands on with every detail. Everything you see is built by us, with care.<br/><br/><strong>Thanks for being here from the start.</strong></p>
+    </div>
+  </section>
+</div>
+
+<hr class="divider"/>
+
+<!-- ── GAMES ── -->
+<div class="sec-outer" id="games-outer">
+  <section id="games">
+    <h2 class="games-h">Our Games</h2>
+
+    <span class="game-badge-above">Coming Soon</span>
+    <div class="game-card">
+      <div class="game-info">
+        <h3 class="game-title">Fours™ Classic</h3>
+        <p class="game-meta">1+ players &nbsp;·&nbsp; 15–30 minutes &nbsp;·&nbsp; Colour-blind friendly</p>
+        <p class="game-desc">A minimalist 54-card deck designed to be played in four different ways — from classic card games to fast duels, pattern matching, and grid strategy...</p>
+      </div>
+    </div>
+
+    <div class="game-cta">
+      <a href="fours-classic.html" class="btn btn-o">Explore Fours™ Classic</a>
+    </div>
+  </section>
+</div>
+
+<hr class="divider"/>
+
+<!-- ── NEWSLETTER ── -->
+<div class="sec-outer" id="nl-outer">
+  <div class="g-blob" style="width:520px;height:520px;right:-160px;bottom:-120px;">
+    <svg viewBox="0 0 520 520" style="width:100%;height:100%;">
+      <defs>
+        <radialGradient id="ng" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"  stop-color="#2B2BDD" stop-opacity="0.75"/>
+          <stop offset="52%" stop-color="#EEFF00" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#EEFF00" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <path d="M260 26L312 168L454 168L342 252L394 394L260 306L126 394L178 252L66 168L208 168Z" fill="url(#ng)"/>
+    </svg>
+  </div>
+  <section id="nl">
+    <h2 class="nl-title">Join the StarGurls<br/>Newsletter</h2>
+    <p class="nl-desc">Get updates, releases, and more news from StarGurls.</p>
+    <div class="nl-form" id="nl-form">
+      <input class="nl-input" type="text" id="nl-name" placeholder="your name..."/>
+      <input class="nl-input" type="email" id="nl-email" placeholder="your email..."/>
+      <button class="nl-btn" onclick="subscribe()">Subscribe</button>
+    </div>
+    <p class="nl-consent" id="nl-consent">By subscribing, I agree to receive email updates from StarGurls. I understand I can unsubscribe at any time.</p>
+    <p class="nl-thanks" id="nl-thanks">✦ &nbsp;thank you — we'll be in touch.&nbsp; ✦</p>
+  </section>
+</div>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-socials">
+    <span class="footer-soc-label">Follow us on</span>
+    <a class="soc-btn" href="https://instagram.com/stargurlsgames" target="_blank" title="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="#000" stroke="none"/>
+      </svg>
+    </a>
+    <a class="soc-btn" href="https://linkedin.com/company/stargurls/" target="_blank" title="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="#000">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/>
+        <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="footer-contact">
+    <span class="footer-contact-label">Contact us at</span>
+    <a href="mailto:info@stargurls.com">info@stargurls.com</a>
+  </div>
+
+  <hr class="footer-hr"/>
+
+  <div class="footer-legal">
+    <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+    <a href="terms-of-use.html" target="_blank">Terms of Use</a>
+    <a href="cookie-policy.html" target="_blank">Cookie Policy</a>
+  </div>
+
+  <p class="footer-copy">© 2026 StarGurls. All rights reserved.</p>
+</footer>
+
+<script>
+  // ── STARFIELD ──
+  const sf=document.getElementById('sf'), cx=sf.getContext('2d'); let stars=[];
+  function resize(){ sf.width=innerWidth; sf.height=innerHeight; }
+  function init(){
+    stars=[];
+    const n=Math.floor(sf.width*sf.height/4800);
+    for(let i=0;i<n;i++) stars.push({x:Math.random()*sf.width,y:Math.random()*sf.height,r:Math.random()*1.4+0.15,a:Math.random()*0.75+0.15,s:Math.random()*0.004+0.001,p:Math.random()*Math.PI*2});
+  }
+  function draw(t){
+    cx.clearRect(0,0,sf.width,sf.height);
+    stars.forEach(s=>{ const a=s.a*(0.55+0.45*Math.sin(t*s.s+s.p)); cx.beginPath(); cx.arc(s.x,s.y,s.r,0,Math.PI*2); cx.fillStyle=`rgba(255,255,255,${a})`; cx.fill(); });
+    requestAnimationFrame(draw);
+  }
+  resize(); init();
+  addEventListener('resize',()=>{ resize(); init(); });
+  requestAnimationFrame(draw);
+
+  // ── NEWSLETTER ──
+  function subscribe(){
+    const nameEl = document.getElementById('nl-name');
+    const emailEl = document.getElementById('nl-email');
+    let valid = true;
+    if(!nameEl.value.trim()){ nameEl.classList.add('err'); valid=false; setTimeout(()=>nameEl.classList.remove('err'),1600); }
+    if(!emailEl.value.trim()||!emailEl.value.includes('@')||!emailEl.value.includes('.')){ emailEl.classList.add('err'); valid=false; setTimeout(()=>emailEl.classList.remove('err'),1600); }
+    if(!valid) return;
+
+    const btn = document.querySelector('.nl-btn');
+    btn.textContent = '...';
+    btn.disabled = true;
+
+    const formData = new FormData();
+    formData.append('fields[name]', nameEl.value.trim());
+    formData.append('fields[email]', emailEl.value.trim());
+    formData.append('ml-submit', '1');
+    formData.append('anticsrf', 'true');
+
+    fetch('https://assets.mailerlite.com/jsonp/2162285/forms/181066134440641862/subscribe', {
+      method: 'POST',
+      body: formData
+    })
+    .then(()=>{
+      document.getElementById('nl-form').style.display='none';
+      document.getElementById('nl-consent').style.display='none';
+      document.getElementById('nl-thanks').style.display='block';
+    })
+    .catch(()=>{
+      // Show thank you even if network issue — MailerLite usually still processes it
+      document.getElementById('nl-form').style.display='none';
+      document.getElementById('nl-consent').style.display='none';
+      document.getElementById('nl-thanks').style.display='block';
+    });
+  }
+  document.getElementById('nl-email').addEventListener('keydown',e=>{ if(e.key==='Enter') subscribe(); });
+</script>
+<!-- ── COOKIE BANNER ── -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>We use essential cookies to keep things running smoothly. <a href="cookie-policy.html" target="_blank">Cookie Policy</a></p>
+  <button class="cookie-btn" id="cookie-btn">Got it</button>
+</div>
+
+<script>
+  (function(){
+    var banner = document.getElementById('cookie-banner');
+    var btn = document.getElementById('cookie-btn');
+    if(localStorage.getItem('sg-cookies-accepted')){
+      banner.style.display = 'none';
+    }
+    btn.addEventListener('click', function(){
+      localStorage.setItem('sg-cookies-accepted', 'true');
+      banner.style.transition = 'opacity 0.4s ease';
+      banner.style.opacity = '0';
+      setTimeout(function(){ banner.style.display = 'none'; }, 400);
+    });
+  })();
+</script>
+</body>
+</html>
