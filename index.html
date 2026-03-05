@@ -4,13 +4,13 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>StarGurls - Play Brighter</title>
-  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="icon" type="image/png" href="/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-    :root { --y:#F5FF00; --b:#2B2BDD; --w:#fff; --g:#777; }
+    :root { --y:#EEFF00; --b:#2B2BDD; --w:#fff; --g:#777; }
     html { scroll-behavior:smooth; }
     body { background:#000; color:#fff; font-family:'DM Sans',sans-serif; overflow-x:hidden; }
 
@@ -75,7 +75,6 @@
     .sec-outer { position:relative; overflow:hidden; }
     section { max-width:680px; margin:0 auto; padding:88px 32px; position:relative; z-index:2; text-align:center; }
 
-    /* About labels — all same big yellow size */
     .s-label {
       font-family:'Unbounded',sans-serif;
       font-size:clamp(1.4rem,3.5vw,2rem);
@@ -84,12 +83,7 @@
       color:var(--y);
     }
     .s-label.w { color:#fff; }
-
-    /* Studio tagline — smaller, like body */
-    .s-studio {
-      font-size:0.96rem; color:var(--g); line-height:1.9; margin-bottom:0;
-    }
-
+    .s-studio { font-size:0.96rem; color:var(--g); line-height:1.9; margin-bottom:0; }
     .s-body { font-size:0.96rem; color:var(--g); line-height:1.9; }
     .s-body strong { color:#fff; font-weight:500; }
     .s-gap { margin-top:56px; }
@@ -118,7 +112,6 @@
     .game-title { font-family:'Unbounded',sans-serif; font-size:1.2rem; font-weight:700; letter-spacing:-0.01em; }
     .game-meta { font-size:0.78rem; color:var(--g); letter-spacing:0.04em; }
     .game-desc { font-size:0.88rem; color:var(--g); line-height:1.75; max-width:440px; }
-
     .game-cta { text-align:center; margin-top:20px; }
 
     /* ── NEWSLETTER ── */
@@ -143,8 +136,6 @@
     .soc-btn svg { width:17px; height:17px; }
     .footer-contact { display:flex; align-items:center; gap:10px; }
     .footer-contact-label { font-size:0.78rem; color:var(--g); letter-spacing:0.06em; }
-    .mail-dot { width:34px; height:34px; border-radius:50%; background:var(--y); display:flex; align-items:center; justify-content:center; }
-    .mail-dot svg { width:15px; height:15px; }
     .footer-contact a { color:#fff; text-decoration:none; font-size:0.88rem; transition:color 0.2s; }
     .footer-contact a:hover { color:var(--y); }
     .footer-hr { border:none; border-top:1px solid rgba(255,255,255,0.07); width:100%; max-width:500px; }
@@ -159,16 +150,6 @@
       to   { opacity:1; transform:translateY(0); }
     }
 
-    /* ── MOBILE ── */
-    @media(max-width:600px) {
-      nav { padding:14px 20px; }
-      .nav-links { display:none; }
-      .divider { margin:0 20px; }
-      section { padding:64px 20px; }
-      footer { padding:40px 20px 28px; }
-      .game-card { flex-direction:column; }
-      .hero-glow { width:380px; height:380px; }
-    }
     /* ── COOKIE BANNER ── */
     .cookie-banner {
       position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
@@ -185,6 +166,16 @@
       border:none; color:#000; font-family:'Unbounded',sans-serif;
       font-weight:700; font-size:0.75rem; cursor:pointer; transition:all 0.2s; white-space:nowrap; }
     .cookie-btn:hover { background:#fff; }
+
+    /* ── MOBILE ── */
+    @media(max-width:600px) {
+      nav { padding:14px 20px; }
+      .nav-links { display:none; }
+      .divider { margin:0 20px; }
+      section { padding:64px 20px; }
+      footer { padding:40px 20px 28px; }
+      .hero-glow { width:380px; height:380px; }
+    }
   </style>
 </head>
 <body>
@@ -193,8 +184,8 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <a class="nav-logo" href="#">
-    <img src="logo.png" alt="StarGurls" onerror="this.style.display='none';document.querySelector('.logo-svg').style.display='block'"/>
+  <a class="nav-logo" href="/">
+    <img src="/logo.png" alt="StarGurls" onerror="this.style.display='none';document.querySelector('.logo-svg').style.display='block'"/>
     <svg class="logo-svg" viewBox="0 0 100 100" fill="none">
       <path d="M50 8C52 8 54 12 56 18L62 36L80 30C84 28 88 28 88 32C88 35 85 38 81 42L68 54L76 74C78 80 78 84 74 84C71 84 68 81 64 78L50 68L36 78C32 81 29 84 26 84C22 84 22 80 24 74L32 54L19 42C15 38 12 35 12 32C12 28 16 28 20 30L38 36L44 18C46 12 48 8 50 8Z" fill="#4A90C4" stroke="#EEFF00" stroke-width="4"/>
     </svg>
@@ -252,20 +243,14 @@
       <path d="M170 18L204 124L310 124L226 184L260 290L170 228L80 290L114 184L30 124L136 124Z" fill="url(#ag2)"/>
     </svg>
   </div>
-
   <section id="about">
     <span class="about-tag">Our Story</span>
-
-    <!-- OUR STORY heading big yellow -->
     <h2 class="s-label">Our Story</h2>
-    <!-- Tagline smaller like body -->
     <p class="s-studio">An independent creative studio crafting accessible, aesthetic games.<br/>Made in Greece. Played everywhere.</p>
-
     <div class="s-gap">
       <h2 class="s-label">Our Mission</h2>
       <p class="s-body">Our mission is simple — to help you <strong>Play Brighter</strong>.<br/><br/>We believe games should be inclusive, imaginative, and built to last — thoughtfully designed experiences that bring people together.</p>
     </div>
-
     <div class="s-gap">
       <h2 class="s-label y">Heads Up.</h2>
       <p class="s-body">This is just the beginning.<br/><br/>We're an early stage studio, hands on with every detail. Everything you see is built by us, with care.<br/><br/><strong>Thanks for being here from the start.</strong></p>
@@ -279,7 +264,6 @@
 <div class="sec-outer" id="games-outer">
   <section id="games">
     <h2 class="games-h">Our Games</h2>
-
     <span class="game-badge-above">Coming Soon</span>
     <div class="game-card">
       <div class="game-info">
@@ -288,9 +272,8 @@
         <p class="game-desc">A minimalist 54-card deck designed to be played in four different ways — from classic card games to fast duels, pattern matching, and grid strategy...</p>
       </div>
     </div>
-
     <div class="game-cta">
-      <a href="fours-classic.html" class="btn btn-o">Explore Fours™ Classic</a>
+      <a href="/fours-classic" class="btn btn-o">Explore Fours™ Classic</a>
     </div>
   </section>
 </div>
@@ -343,25 +326,20 @@
       </svg>
     </a>
   </div>
-
   <div class="footer-contact">
     <span class="footer-contact-label">Contact us at</span>
     <a href="mailto:info@stargurls.com">info@stargurls.com</a>
   </div>
-
   <hr class="footer-hr"/>
-
   <div class="footer-legal">
-    <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
-    <a href="terms-of-use.html" target="_blank">Terms of Use</a>
-    <a href="cookie-policy.html" target="_blank">Cookie Policy</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/terms-of-use">Terms of Use</a>
+    <a href="/cookie-policy">Cookie Policy</a>
   </div>
-
   <p class="footer-copy">© 2026 StarGurls. All rights reserved.</p>
 </footer>
 
 <script>
-  // ── STARFIELD ──
   const sf=document.getElementById('sf'), cx=sf.getContext('2d'); let stars=[];
   function resize(){ sf.width=innerWidth; sf.height=innerHeight; }
   function init(){
@@ -378,7 +356,6 @@
   addEventListener('resize',()=>{ resize(); init(); });
   requestAnimationFrame(draw);
 
-  // ── NEWSLETTER ──
   function subscribe(){
     const nameEl = document.getElementById('nl-name');
     const emailEl = document.getElementById('nl-email');
@@ -386,20 +363,16 @@
     if(!nameEl.value.trim()){ nameEl.classList.add('err'); valid=false; setTimeout(()=>nameEl.classList.remove('err'),1600); }
     if(!emailEl.value.trim()||!emailEl.value.includes('@')||!emailEl.value.includes('.')){ emailEl.classList.add('err'); valid=false; setTimeout(()=>emailEl.classList.remove('err'),1600); }
     if(!valid) return;
-
     const btn = document.querySelector('.nl-btn');
     btn.textContent = '...';
     btn.disabled = true;
-
     const formData = new FormData();
     formData.append('fields[name]', nameEl.value.trim());
     formData.append('fields[email]', emailEl.value.trim());
     formData.append('ml-submit', '1');
     formData.append('anticsrf', 'true');
-
     fetch('https://assets.mailerlite.com/jsonp/2162285/forms/181066134440641862/subscribe', {
-      method: 'POST',
-      body: formData
+      method: 'POST', body: formData
     })
     .then(()=>{
       document.getElementById('nl-form').style.display='none';
@@ -407,7 +380,6 @@
       document.getElementById('nl-thanks').style.display='block';
     })
     .catch(()=>{
-      // Show thank you even if network issue — MailerLite usually still processes it
       document.getElementById('nl-form').style.display='none';
       document.getElementById('nl-consent').style.display='none';
       document.getElementById('nl-thanks').style.display='block';
@@ -415,19 +387,17 @@
   }
   document.getElementById('nl-email').addEventListener('keydown',e=>{ if(e.key==='Enter') subscribe(); });
 </script>
+
 <!-- ── COOKIE BANNER ── -->
 <div class="cookie-banner" id="cookie-banner">
-  <p>We use essential cookies to keep things running smoothly. <a href="cookie-policy.html" target="_blank">Cookie Policy</a></p>
+  <p>We use essential cookies to keep things running smoothly. <a href="/cookie-policy">Cookie Policy</a></p>
   <button class="cookie-btn" id="cookie-btn">Got it</button>
 </div>
-
 <script>
   (function(){
     var banner = document.getElementById('cookie-banner');
     var btn = document.getElementById('cookie-btn');
-    if(localStorage.getItem('sg-cookies-accepted')){
-      banner.style.display = 'none';
-    }
+    if(localStorage.getItem('sg-cookies-accepted')){ banner.style.display = 'none'; }
     btn.addEventListener('click', function(){
       localStorage.setItem('sg-cookies-accepted', 'true');
       banner.style.transition = 'opacity 0.4s ease';
